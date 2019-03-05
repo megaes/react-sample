@@ -60,16 +60,12 @@ class MuiVirtualizedTable extends React.PureComponent {
     };
 
     getColumnLayout() {
-        const layout = this.props.db.length ? this.props.db[0] : {};
-        let columns = [];
-        for(let prop in layout) {
-            const name = prop.toString();
-            if (typeof layout[prop] == 'number') {
-                columns.push({ width: 120, dataKey: name, label: name, numeric: true });
-            } else {
-                columns.push({ width: 200, dataKey: name, label: name, flexGrow: 1.0 });
+        let columns = Object.entries(this.props.db.length ? this.props.db[0] : {}).map(entry => {
+            if (typeof entry[1] == 'number') {
+                return { width: 120, dataKey: entry[0], label: entry[0], numeric: true };
             }
-        }
+            return { width: 200, dataKey: entry[0], label: entry[0], flexGrow: 1.0 };
+        });
         columns.push({ width: 100, dataKey: 'editBtn'});
         return columns;
     }

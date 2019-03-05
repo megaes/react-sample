@@ -14,17 +14,15 @@ class EditDialog extends React.Component {
     };
 
     getLayout(id) {
-        const obj = this.props.db[id];
-        let elements = [];
-        for(let prop in obj) {
-            elements.push({
-                value: obj[prop],
+        let elements = Object.entries(this.props.db[id]).map(entry => {
+            return {
+                value: entry[1],
                 margin: 'normal',
-                id: `txt_field_${prop}`,
-                label: prop,
-                type: (typeof obj[prop] == 'number') ? 'number' : 'text'
-            });
-        }
+                id: `txt_field_${entry[0]}`,
+                label: entry[0],
+                type: (typeof entry[1] == 'number') ? 'number' : 'text'
+            }
+        });
         elements[0].autoFocus = true;
         return elements;
     }
@@ -54,7 +52,7 @@ class EditDialog extends React.Component {
 
         if (id >= db.length) {
             if(db.length) {
-                setTimeout(() => history.push('/'), 0);
+                setTimeout(() => history.replace('/'), 0);
             }
             return null;
         }
