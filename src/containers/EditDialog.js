@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import * as actionCreators from '../store/actions/index';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -51,10 +52,7 @@ class EditDialog extends React.Component {
         const {db, history} = this.props;
 
         if (id >= db.length) {
-            if(db.length) {
-                setTimeout(() => history.replace('/'), 0);
-            }
-            return null;
+            return db.length ? <Redirect to='/' /> : null;
         }
         const layout = this.getLayout(id);
         return (
