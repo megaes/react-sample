@@ -5,7 +5,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-export default props => {
+interface IPropsState {
+    open: boolean,
+    caption: string,
+}
+
+export default (props => {
     return (
         <Dialog {...props}>
             <DialogContent>
@@ -22,6 +27,6 @@ export default props => {
             </DialogContent>
         </Dialog>
     );
-}
+}) as React.FC<IPropsState>;
 
 
